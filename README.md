@@ -1,2 +1,2 @@
 # Leetcode
-Python Solution for Leetcode Problems
+Python/SQL Solution for Leetcode Problems
