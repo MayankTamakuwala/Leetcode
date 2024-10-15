@@ -10,7 +10,6 @@ class AllOne:
 
     def __init__(self):
         self.nodeMap = {}
-        self.freqMap = {}
         self.head = Node()
         self.tail = Node()
         self.head.next = self.tail
@@ -19,24 +18,15 @@ class AllOne:
     def inc(self, key: str) -> None:
         if key in self.nodeMap:
             keyNode = self.nodeMap[key]
-            keyOldFreq = keyNode.freq
-            self.freqMap[keyOldFreq].keys.remove(key)
+            keyOlfFreq = keyNode.freq
+            keyNode.keys.remove(key)
 
-            if len(self.freqMap[keyOldFreq].keys) == 0:
-                freqPrev = self.freqMap[keyOldFreq].prev
-                freqNext = self.freqMap[keyOldFreq].next
-                freqPrev.next = freqNext
-                freqNext.prev = freqPrev
-                keyNode = keyNode.prev
-                del self.freqMap[keyOldFreq]
-
-            if keyOldFreq + 1 in self.freqMap:
-                self.freqMap[keyOldFreq + 1].keys.append(key)
-                self.nodeMap[key] = self.freqMap[keyOldFreq + 1]
-
+            if keyNode.next.freq == keyOlfFreq + 1:
+                keyNode.next.keys.append(key)
+                self.nodeMap[key] = keyNode.next
             else:
                 newNode = Node()
-                newNode.freq = keyOldFreq + 1
+                newNode.freq = keyOlfFreq + 1
                 newNode.keys.append(key)
 
                 keyNodeNext = keyNode.next
@@ -44,40 +34,43 @@ class AllOne:
                 newNode.next = keyNodeNext
                 keyNodeNext.prev = newNode
                 keyNode.next = newNode
-
                 self.nodeMap[key] = newNode
-                self.freqMap[keyOldFreq + 1] = newNode
+            
+            if len(keyNode.keys) == 0:
+                keyNodePrev = keyNode.prev
+                keyNodeNext = keyNode.next
 
+                keyNodePrev.next = keyNodeNext
+                keyNodeNext.prev = keyNodePrev
         else:
+            headNext = self.head.next
 
-            if 1 in self.freqMap:
-                self.freqMap[1].keys.append(key)
-                self.nodeMap[key] = self.freqMap[1]
-
+            if headNext.freq == 1:
+                headNext.keys.append(key)
+                self.nodeMap[key] = headNext
             else:
                 newNode = Node()
                 newNode.freq = 1
                 newNode.keys.append(key)
 
-                headNext = self.head.next
-
                 newNode.prev = self.head
                 newNode.next = headNext
                 headNext.prev = newNode
                 self.head.next = newNode
-
                 self.nodeMap[key] = newNode
-                self.freqMap[1] = newNode
+                
 
     def dec(self, key: str) -> None:
         keyNode = self.nodeMap[key]
         keyOldFreq = keyNode.freq
-        self.freqMap[keyOldFreq].keys.remove(key)
+        keyNode.keys.remove(key)
+        
+        if keyNode.freq > 1:
+            keyNodePrev = keyNode.prev
 
-        if keyOldFreq > 1:
-            if (keyOldFreq - 1) in self.freqMap:
-                self.freqMap[keyOldFreq].prev.keys.append(key)
-                self.nodeMap[key] = self.freqMap[keyOldFreq].prev
+            if keyNodePrev.freq == keyOldFreq - 1:
+                keyNodePrev.keys.append(key)
+                self.nodeMap[key] = keyNodePrev
             else:
                 newNode = Node()
                 newNode.freq = keyOldFreq - 1
@@ -88,18 +81,18 @@ class AllOne:
                 newNode.prev = keyNodePrev
                 keyNodePrev.next = newNode
                 keyNode.prev = newNode
-
+                
                 self.nodeMap[key] = newNode
-                self.freqMap[keyOldFreq - 1] = newNode
+
         else:
             del self.nodeMap[key]
+        
+        if len(keyNode.keys) == 0:
+            keyNodePrev = keyNode.prev
+            keyNodeNext = keyNode.next
 
-        if len(self.freqMap[keyOldFreq].keys) == 0:
-            freqPrev = self.freqMap[keyOldFreq].prev
-            freqNext = self.freqMap[keyOldFreq].next
-            freqPrev.next = freqNext
-            freqNext.prev = freqPrev
-            del self.freqMap[keyOldFreq]
+            keyNodePrev.next = keyNodeNext
+            keyNodeNext.prev = keyNodePrev
 
     def getMaxKey(self) -> str:
         t = self.tail.prev
