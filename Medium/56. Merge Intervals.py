@@ -11,3 +11,4 @@ class Solution:
                 merged.append(i)
         
         return merged
+
