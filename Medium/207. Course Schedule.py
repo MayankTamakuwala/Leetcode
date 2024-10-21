@@ -8,8 +8,6 @@ class Solution:
         for i in prerequisites:
             courseMap[i[0]].append(i[1])
 
-        visited = [False] * numCourses
-
         def dfs(course):
             if course in track:
                 return False
