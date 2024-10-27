@@ -6,7 +6,7 @@ class Solution:
         track = defaultdict(int)
 
         for i in arr:
-            rem = ((i % k) + k) % k
+            rem = (i % k)
             track[rem] += 1
 
         if track[0] % 2 != 0:
