@@ -6,8 +6,7 @@
 #         self.right = right
 class Solution:
     def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
-        newTree = TreeNode()
-        dummy = newTree
+
         def dsf(n1, n2, newTree):
             if not n1 and not n2:
                 return None
