@@ -16,7 +16,8 @@ class Solution:
         while queue:
             res += 1
             queue_length = len(queue)
-            for i in range(queue_length):
+
+            for _ in range(queue_length):
                 node = queue.pop(0)
                 if node.left:
                     queue.append(node.left)
