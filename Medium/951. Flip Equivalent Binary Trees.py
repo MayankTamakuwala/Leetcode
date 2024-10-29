@@ -7,21 +7,21 @@
 class Solution:
     def flipEquiv(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
 
-        def isSymmetric(l, r):
-            if not l and not r:
-                return True
+        l = root1
+        r = root2
 
-            if not l or not r:
-                return False
+        if not l and not r:
+            return True
 
-            if l.val != r.val:
-                return False
+        if not l or not r:
+            return False
 
-            rec1 = isSymmetric(l.left, r.left) and isSymmetric(l.right, r.right)
-            if rec1:
-                return True
-            rec2 = isSymmetric(l.left, r.right) and isSymmetric(l.right, r.left)
+        if l.val != r.val:
+            return False
 
-            return rec1 or rec2
+        rec1 = self.flipEquiv(l.left, r.left) and self.flipEquiv(l.right, r.right)
+        if rec1:
+            return True
+        rec2 = self.flipEquiv(l.left, r.right) and self.flipEquiv(l.right, r.left)
 
-        return isSymmetric(root1, root2)
+        return rec1 or rec2
