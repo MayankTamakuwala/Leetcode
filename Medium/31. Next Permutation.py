@@ -7,7 +7,7 @@ class Solution:
             return
 
         pivot = 0
-        check = False
+
         for i in range(len(nums) - 2, -1 , -1):
             if nums[i+1] > nums[i]:
                 pivot = i + 1
