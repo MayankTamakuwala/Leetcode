@@ -7,4 +7,5 @@ class Solution:
             else:
                 mySet.add(n / 2)
                 mySet.add(n * 2)
+
         return False
