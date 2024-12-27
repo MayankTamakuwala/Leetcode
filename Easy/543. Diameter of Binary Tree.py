@@ -22,4 +22,5 @@ class Solution:
             return 1 + max(l, r)
 
         dfs(root)
+
         return res
