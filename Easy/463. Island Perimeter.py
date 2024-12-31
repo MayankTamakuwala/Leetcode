@@ -26,4 +26,5 @@ class Solution:
             for c in range(COLS):
                 if grid[r][c]:
                     res += dfs(r, c)
+
         return res
