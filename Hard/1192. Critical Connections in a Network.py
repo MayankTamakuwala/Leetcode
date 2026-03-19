@@ -37,14 +37,12 @@ class Solution:
 
         disc = [-1]*n
         low = [-1]*n
-        # visited = set()
         time = 0
         res = []
 
         def dfs(par, node):
             nonlocal time
 
-            # visited.add(node)
             disc[node] = time
             low[node] = time
             time += 1
